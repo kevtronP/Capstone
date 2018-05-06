@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     patch "/events/:id" => "events#update"
     delete "/events/:id" => "events#destroy"
 
+    post "/event_users" => "event_users#create"
+
     get "/games" => "games#index"
     post "/games" => "games#create"
     get "/games/:id" => "games#show"

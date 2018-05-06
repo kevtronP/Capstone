@@ -1,5 +1,5 @@
 class V1::EventsController < ApplicationController
-  # before_action :authenticate_user, except: [:index, :show]
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
     events = Event.all
@@ -11,7 +11,7 @@ class V1::EventsController < ApplicationController
       name: params[:name],
       datetime: params[:datetime],
       address: params[:address],
-      user_id: 5,
+      user_id: current_user.id,
       game_id: params[:game_id],
       num_players: params[:num_players]
     )

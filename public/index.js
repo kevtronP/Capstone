@@ -56,7 +56,6 @@ var HomePage = {
     sortedEvents: function() {
       return this.events.sort(
         function(event1, event2) {
-          // return recipe1.chef.localeCompare(recipe2.chef);
           var lowerAttribute1 = event1[this.sortAttribute].toLowerCase();
           var lowerAttribute2 = event2[this.sortAttribute].toLowerCase();
           if (this.sortAscending) {
