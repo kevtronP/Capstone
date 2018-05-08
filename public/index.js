@@ -29,6 +29,25 @@ var HomePage = {
     );
   },
   methods: {
+    join: function() {
+      var params = {
+        user_id: this.user.id,
+        event_id: this.currentEvent.id,
+        errors: []
+      };
+      console.log(params);
+      console.log(this.currentEvent.id);
+      axios
+        .post("/v1/event_users", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    },
     setCurrentEvent: function(inputEvent) {
       this.currentEvent = inputEvent;
     },
