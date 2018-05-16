@@ -6,9 +6,11 @@ var HomePage = {
     return {
       message: "Hello there,",
       events: [],
+      games: [],
       nameFilter: "",
-      datetimeFilter: "",
+      gameFilter: "",
       sortAttribute: "name",
+      map: "",
       sortAscending: true,
       currentEvent: {
         name: "name goes here",
@@ -16,7 +18,8 @@ var HomePage = {
         address: "address goes here",
         user_id: "user id goes here",
         game_id: "game id goes here",
-        num_players: "number of players goes here"
+        num_players: "number of players goes here",
+        games: ""
       }
     };
   },
@@ -31,7 +34,7 @@ var HomePage = {
   methods: {
     join: function() {
       var params = {
-        user_id: this.user.id,
+        user_id: this.user_id,
         event_id: this.currentEvent.id,
         errors: []
       };
@@ -56,10 +59,10 @@ var HomePage = {
         .toLowerCase()
         .includes(this.nameFilter.toLowerCase());
     },
-    isValidDatetimeFilter: function(inputEvent) {
-      return inputEvent.datetime
+    isValidGameFilter: function(inputGame) {
+      return inputGame.game.name
         .toLowerCase()
-        .includes(this.datetimeFilter.toLowerCase());
+        .includes(this.gameFilter.toLowerCase());
     },
     isValidEvent: function(inputEvent) {
       return (
@@ -200,13 +203,19 @@ var LogoutPage = {
   }
 };
 
+var DiceRollPage = {
+  templete: "DiceRoll",
+  mounted: function() {}
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage },
-    { path: "/newevent", component: EventsNewPage }
+    { path: "/newevent", component: EventsNewPage },
+    { path: "/dice", component: DiceRollPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
