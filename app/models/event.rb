@@ -11,6 +11,7 @@ class Event < ApplicationRecord
       game_id: game_id,
       game: game.as_json,
       num_players: num_players,
+      description: description,
 
     }
   end
