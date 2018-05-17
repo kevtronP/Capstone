@@ -31,6 +31,34 @@ var HomePage = {
       }.bind(this)
     );
   },
+  mounted: function() {
+    var locations = [
+      { description: "215 W Ohio", lat: 41.892156, lng: -87.634794 },
+      { description: "1950 N Campbell", lat: 41.917352, lng: -87.690546 },
+      { description: "3341 N Elston", lat: 41.942217, lng: -87.702004 },
+      { description: "212 E Cullerton", lat: 41.855618, lng: -87.621919 }
+    ];
+
+    var map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 10,
+      center: new google.maps.LatLng(41.9, -87.65)
+    });
+
+    locations.forEach(function(location) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+
+      let infowindow = new google.maps.InfoWindow({
+        content: location.description
+      });
+
+      marker.addListener("click", function() {
+        infowindow.open(map, marker);
+      });
+    });
+  },
   methods: {
     join: function() {
       var params = {
@@ -43,7 +71,7 @@ var HomePage = {
       axios
         .post("/v1/event_users", params)
         .then(function(response) {
-          router.push("/");
+          router.push("'/#/events/' + event.id");
         })
         .catch(
           function(error) {
@@ -122,6 +150,32 @@ var SignupPage = {
         );
     }
   }
+};
+
+var EventsShowPage = {
+  template: "#events-show-page",
+  data: function() {
+    return {
+      event: {
+        name: "name goes here",
+        datetime: "date and time go here",
+        address: "address goes here",
+        user_id: "user id goes here",
+        game_id: "game id goes here",
+        num_players: "number of players goes here"
+      }
+    };
+  },
+  created: function() {
+    console.log("what is this weird $route thing", this.$route);
+    axios.get("v1/events/" + this.$route.params.id).then(
+      function(response) {
+        this.event = response.data;
+      }.bind(this)
+    );
+  },
+  methods: {},
+  computed: {}
 };
 
 var LoginPage = {
@@ -204,8 +258,10 @@ var LogoutPage = {
 };
 
 var DiceRollPage = {
-  templete: "DiceRoll",
-  mounted: function() {}
+  template: "#DiceRoll",
+  mounted: function() {
+    dice_initialize(document.body);
+  }
 };
 
 var router = new VueRouter({
@@ -215,7 +271,8 @@ var router = new VueRouter({
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage },
     { path: "/newevent", component: EventsNewPage },
-    { path: "/dice", component: DiceRollPage }
+    { path: "/dice", component: DiceRollPage },
+    { path: "/events/:id", component: EventsShowPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

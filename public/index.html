@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-<!--   <link href="main.css" rel="stylesheet">
-  <link href="dice.css" rel="stylesheet"> -->
+  <!-- <link href="main.css" rel="stylesheet"> -->
+  <!-- <link href="dice.css" rel="stylesheet"> -->
   <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
   <title>board control</title>
@@ -23,12 +23,19 @@
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
-<!--   <script src="three.min.js"></script>
+  <script src="three.min.js"></script>
   <script src="cannon.min.js"></script>
-  <script src="main.js"></script>
+  <script src="teal.js"></script>
   <script src="dice.js"></script>
-  <script src="roll.js"></script> -->
+  <script src="main.js"></script>
   <script src="index.js" defer></script>
+  <style>
+  /* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+  #map {
+    height: 400px;
+  }
+  </style>
 </head>
 <body>
   <div id="vue-app">
@@ -78,7 +85,7 @@
       <div class="masthead-content">
         <div class="container">
           <h1 class="masthead-heading mb-0"> {{ message }} </h1>
-          <h2 class="masthead-subheading mb-0">Welcome to my ----------- BEAUTIFUL WEBSITE</h2>
+          <h2 class="masthead-subheading mb-0">Welcome to Board Control</h2>
           <a href="/#/dice" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>
         </div>
       </div>
@@ -94,7 +101,6 @@
     <div>
       <br>
       <button class="btn btn-primary" v-on:click="setSortAttribute('name')">Sort by Event</button>
-      <button class="btn btn-primary" v-on:click="setSortAttribute('datetime')">Sort by Date and Time</button>
     </div>
     <br>
 
@@ -104,13 +110,13 @@
 
     <div class="row" is="transition-group" name="fade">
       <div class="col-md-4" v-for="event in sortedEvents" v-if="isValidEvent(event)" v-bind:key="event.name">
-        <div class="card mb-5" style="height: 300px;overflow-y: auto;">
+        <div class="card mb-5">
           <div class="card-body">
             <h4 class="card-title">{{ event.name }}</h4>
             <p class="card-text body">{{ event.datetime }}</p>
             <p class="card-text body">{{ event.address }}</p>
             <p class="card-text body">{{ event.game.name }}</p>
-            <p class="card-text body">{{ event.game.description }}</p>
+            <img class="card-img-bottom" v-bind:src="event.game.image" alt="Card image cap">
             <a href="#" class="btn btn-primary" v-on:click="setCurrentEvent(event)" data-toggle="modal" data-target="#exampleModal">More info</a>
           </div>
         </div>
@@ -145,8 +151,7 @@
         </div>
       </div>
     </div>
-    <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.0324145496197!2d-87.63698318466018!3d41.892159972513475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2cb444f646c9%3A0x7945275dd8d4297d!2s215+W+Ohio+St%2C+Chicago%2C+IL+60654!5e0!3m2!1sen!2sus!4v1526340201174" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-
+    <div id="map"></div>
     <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
@@ -281,7 +286,15 @@
   </div>
 </template>
 
-<!-- <template id="DiceRoll">
+<template id="events-show-page">
+  <div class="vue-component">
+    <h1>{{ message }}</h1>
+  </div>  
+</template>
+
+
+
+<template id="DiceRoll">
     <div class="vue-component">
       <div class="control_panel">
           <h6><img src="../favicon.ico" style="vertical-align: middle"></img> <a href="..">teal</a> dice</h6>
@@ -314,7 +327,4 @@
       </div>
       <div id="canvas"></div>
     </div>
-    <script type="text/javascript" defer="defer">
-    dice_initialize(document.body);
-    </script>
-</template> -->
+</template>
