@@ -9,6 +9,7 @@ var HomePage = {
       games: [],
       nameFilter: "",
       gameFilter: "",
+      genreFilter: "",
       sortAttribute: "name",
       map: "",
       sortAscending: true,
@@ -19,7 +20,7 @@ var HomePage = {
         user_id: "user id goes here",
         game_id: "game id goes here",
         num_players: "number of players goes here",
-        games: ""
+        game: {}
       }
     };
   },
@@ -71,7 +72,7 @@ var HomePage = {
       axios
         .post("/v1/event_users", params)
         .then(function(response) {
-          router.push("'/#/events/' + event.id");
+          router.push("/events/" + response.data.event_id);
         })
         .catch(
           function(error) {
@@ -92,14 +93,17 @@ var HomePage = {
         .toLowerCase()
         .includes(this.gameFilter.toLowerCase());
     },
+    isValidGenreFilter: function(inputGenre) {
+      return inputGenre.game.genre
+        .toLowerCase()
+        .includes(this.genreFilter.toLowerCase());
+    },
     isValidEvent: function(inputEvent) {
       return (
-        this.isValidEventName(inputEvent) && this.isValidEventName(inputEvent)
+        this.isValidEventName(inputEvent) &&
+        this.isValidGameFilter(inputEvent) &&
+        this.isValidGenreFilter(inputEvent)
       );
-    },
-    setSortAttribute: function(inputSortAttribute) {
-      this.sortAttribute = inputSortAttribute;
-      this.sortAscending = !this.sortAscending;
     }
   },
   computed: {
@@ -162,7 +166,8 @@ var EventsShowPage = {
         address: "address goes here",
         user_id: "user id goes here",
         game_id: "game id goes here",
-        num_players: "number of players goes here"
+        num_players: "number of players goes here",
+        game: {}
       }
     };
   },

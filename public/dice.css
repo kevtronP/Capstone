@@ -1,22 +1,22 @@
-.center_field {
+.dice-div .center_field {
     position: absolute;
     text-align: center;
     height: 100%;
     width: 100%;
 }
 
-.center_field * {
+.dice-div .center_field * {
     position: relative;
     font-family: Trebuchet MS;
     background-color: rgba(255, 255, 255, 0.6);
     padding: 5px 15px;
 }
 
-.center_field br {
+.dice-div .center_field br {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.bottom_field {
+.dice-div .bottom_field {
     position: absolute;
     text-align: center;
     bottom: 5px;
@@ -24,7 +24,7 @@
     padding: 0px;
 }
 
-#label {
+.dice-div #label {
     font-size: 32pt;
     word-spacing: 0.5em;
     padding: 5px 15px;
@@ -32,14 +32,14 @@
     top: 45%;
 }
 
-#labelhelp {
+.dice-div #labelhelp {
     font-size: 12pt;
     padding: 5px 15px;
     color: rgba(21, 26, 26, 0.5);
     bottom: 50px;
 }
 
-#set {
+.dice-div #set {
     text-align: center;
     font-size: 26pt;
     border: none;
@@ -48,14 +48,14 @@
     top: 60%;
 }
 
-#sethelp {
+.dice-div #sethelp {
     font-size: 12pt;
     color: rgba(21, 26, 26, 0.5);
     background: none;
     top: 25%;
 }
 
-#selector_div button {
+.dice-div #selector_div button {
     font-size: 20pt;
     color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0.6);
@@ -65,7 +65,7 @@
     top: 62%;
 }
 
-.dice_place {
+.dice-div .dice_place {
     position: absolute;
     border: solid black 1px;
 }

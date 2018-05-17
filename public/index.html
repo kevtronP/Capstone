@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <!-- <link href="main.css" rel="stylesheet"> -->
-  <!-- <link href="dice.css" rel="stylesheet"> -->
+  <link href="main.css" rel="stylesheet">
+  <link href="dice.css" rel="stylesheet">
   <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
   <title>board control</title>
@@ -97,6 +97,7 @@
     <br>
     <input type="text" v-model="nameFilter" placeholder="Search by event" list="event-names">
     <input type="text" v-model="gameFilter" placeholder="Search by game">
+    <input type="text" v-model="genreFilter" placeholder="Search by genre">
 
     <div>
       <br>
@@ -138,15 +139,17 @@
             <br>
             Address: {{ currentEvent.address }}
             <br>
-            Game: {{ currentEvent.name }}
-            <br>
             Description: {{ currentEvent.description }}
             <br>
             # of Players: {{ currentEvent.num_players }}
+            <br>
+            Game: {{ currentEvent.game.name }}
+            <br>
+            Description: <span style="font-size: 0.7em">{{ currentEvent.game.description }}</span>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" v-on:click="join()">Join Event</button>
+            <button type="button" class="btn btn-primary" v-on:click="join()" data-dismiss="modal">Join Event</button>
           </div>
         </div>
       </div>
@@ -170,7 +173,6 @@
       <div class="masthead-content">
         <div class="container">
           <h1 class="masthead-heading mb-0">Signup</h1>
-          <h2 class="masthead-subheading mb-0">TEXT</h2>
           <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>
         </div>
       </div>
@@ -212,7 +214,6 @@
       <div class="masthead-content">
         <div class="container">
           <h1 class="masthead-heading mb-0">Login</h1>
-          <h2 class="masthead-subheading mb-0">TEXT</h2>
           <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>
         </div>
       </div>
@@ -246,7 +247,6 @@
       <div class="masthead-content">
         <div class="container">
           <h1 class="masthead-heading mb-0">Create a New Event</h1>
-          <h2 class="masthead-subheading mb-0">TEXT</h2>
           <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>
         </div>
       </div>
@@ -288,14 +288,40 @@
 
 <template id="events-show-page">
   <div class="vue-component">
-    <h1>{{ message }}</h1>
+    <header class="masthead text-center text-white">
+      <div class="masthead-content">
+        <div class="container">
+          <h1 class="masthead-heading mb-0">Show event</h1>
+          <h2 class="masthead-subheading mb-0">Welcome to Board Control</h2>
+        </div>
+      </div>
+      <div class="bg-circle-1 bg-circle"></div>
+      <div class="bg-circle-2 bg-circle"></div>
+      <div class="bg-circle-3 bg-circle"></div>
+      <div class="bg-circle-4 bg-circle"></div>
+    </header>
+    <div class="container">
+      <h1>Event info</h1>
+      <p>Game: {{ event.game.name }}</p>
+      <p>Date and Time: {{ event.datetime }}</p>
+      <p>Address: {{ event.address }}</p>
+      <p>Description: {{ event.description }}</p>
+      <p># of Players: {{ event.num_players }}</p>      
+
+      <h1>Users</h1>
+      <div v-for="user in event.users">
+        <h4>{{ user.name }} <a v-bind:href="'http://twitter.com/' + user.twitter_handle" target="_blank"><img src="twitter.png" alt="" width=30></a></h4>
+        <p>{{ user.bio }}</p>
+      </div>
+    </div>
+
   </div>  
 </template>
 
 
 
 <template id="DiceRoll">
-    <div class="vue-component">
+    <div class="vue-component dice-div">
       <div class="control_panel">
           <h6><img src="../favicon.ico" style="vertical-align: middle"></img> <a href="..">teal</a> dice</h6>
           <p id="loading_text">Loading libraries, please wait a bit...</p>
